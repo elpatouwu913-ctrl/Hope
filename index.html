@@ -2,15 +2,29 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hope - Tu amiga virtual</title>
-  <link rel="stylesheet" href="estilo.css">
+  <title>Hope - Tu Bot Amigo</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hola, soy Hope 💖</h1>
-  <div id="chatBox"></div>
-  <input type="text" id="userInput" placeholder="Escríbeme algo...">
-  <button onclick="enviarMensaje()">Enviar</button>
+  <h2>Hope - Tu Bot Amigo</h2>
+
+  <!-- Carita -->
+  <div class="face">
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+    <div class="mouth"></div>
+  </div>
+
+  <!-- Chat -->
+  <div class="chat">
+    <div id="chatBox"></div>
+
+    <!-- Formulario para enviar mensajes -->
+    <form id="chatForm" class="input-area">
+      <input type="text" id="userInput" placeholder="Escríbele algo...">
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
 
   <script src="script.js"></script>
 </body>
