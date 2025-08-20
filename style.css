@@ -1,91 +1,213 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Comic Neue', cursive;
+  background: linear-gradient(180deg, #ffe6f0, #e6f7ff);
   text-align: center;
-  background: #fff;
   margin: 0;
-  padding: 0;
-}
-
-h2 {
-  margin-top: 15px;
-  color: #333;
-}
-
-.face {
-  width: 150px;
-  height: 150px;
-  background: pink;
-  border: 4px solid brown;
-  border-radius: 20px;
-  margin: 20px auto;
-  position: relative;
-}
-
-.eye {
-  width: 25px;
-  height: 25px;
-  background: brown;
-  border-radius: 5px;
-  position: absolute;
-  top: 40px;
-}
-
-.eye::after {
-  content: "";
-  width: 10px;
-  height: 10px;
-  background: white;
-  border-radius: 50%;
-  position: absolute;
-  top: 4px;
-  left: 4px;
-}
-
-.eye.left {
-  left: 30px;
-}
-
-.eye.right {
-  right: 30px;
-}
-
-.mouth {
-  width: 40px;
-  height: 20px;
-  background: brown;
-  border-radius: 0 0 20px 20px;
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.chat {
-  width: 90%;
-  max-width: 400px;
-  margin: 0 auto;
+  padding: 20px;
 }
 
 #chatBox {
-  border: 1px solid #ccc;
-  min-height: 120px;
-  margin-bottom: 10px;
-  padding: 5px;
+  width: 90%;
+  max-width: 400px;
+  height: 300px;
+  margin: 20px auto;
+  padding: 10px;
+  background: white;
+  border-radius: 15px;
+  overflow-y: auto;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+.userMsg {
+  text-align: right;
+  background: #d6f5ff;
+  margin: 5px;
+  padding: 8px 12px;
+  border-radius: 15px;
+  display: inline-block;
+}
+
+.botMsg {
   text-align: left;
+  background: #ffe6f7;
+  margin: 5px;
+  padding: 8px 12px;
+  border-radius: 15px;
+  display: inline-block;
 }
 
-.input-area {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
+.input-box {
+  margin-top: 10px;
 }
 
-input {
-  flex: 1;
-  padding: 5px;
+#userInput {
+  width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
-button {
-  padding: 5px 10px;
+#sendBtn {
+  padding: 10px 15px;
+  border: none;
+  background: #ff5ca2;
+  color: white;
+  border-radius: 10px;
   cursor: pointer;
-  }
+}
+
+#carita {
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+  background: white;
+  border: 3px solid #ff5ca2;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.ojo {
+  width: 20px;
+  height: 20px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 35px;
+}
+
+.ojo-izq { left: 30px; }
+.ojo-der { right: 30px; }
+
+.boca {
+  width: 50px;
+  height: 20px;
+  background: #ff5ca2;
+  border-radius: 0 0 50px 50px;
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+}
+
+/* Boca feliz */
+.boca.feliz {
+  height: 30px;
+  border-radius: 0 0 50px 50px;
+}
+
+/* Boca sorprendida */
+.boca.sorprendida {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+/* Emociones extra */
+.face.feliz .mouth {
+  border-radius: 0 0 50% 50%;
+  height: 20px;
+}
+
+.face.triste .mouth {
+  border-radius: 50% 50% 0 0;
+  height: 10px;
+}
+
+.face.sorpresa .mouth {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.face.miedo .mouth {
+  border-radius: 50%;
+  width: 30px;
+  height: 15px;
+  background: lightblue;
+}
+
+.face.enojo .mouth {
+  border-radius: 0;
+  width: 30px;
+  height: 8px;
+  transform: rotate(-10deg);
+}
+/* Carita base */
+.face {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid pink;
+  position: relative;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+/* Feliz 😀 */
+.face.feliz {
+  background: #fff;
+}
+.face.feliz::before,
+.face.feliz::after {
+  content: "◕";
+  position: absolute;
+  top: 35px;
+  font-size: 28px;
+}
+.face.feliz::before { left: 35px; }
+.face.feliz::after { right: 35px; }
+.face.feliz span {
+  position: absolute;
+  bottom: 25px;
+  font-size: 28px;
+  color: deeppink;
+}
+
+/* Triste 😢 */
+.face.triste span {
+  content: "︵";
+  bottom: 15px;
+  font-size: 28px;
+  color: blue;
+}
+
+/* Enojado 😠 */
+.face.enojado::before,
+.face.enojado::after {
+  content: "ಠ";
+  top: 30px;
+}
+.face.enojado span {
+  content: "益";
+  bottom: 20px;
+  font-size: 30px;
+  color: red;
+}
+
+/* Asustado 😨 */
+.face.asustado span {
+  content: "o";
+  bottom: 20px;
+  font-size: 40px;
+  color: darkblue;
+}
+
+/* Sorpresa 😲 */
+.face.sorpresa span {
+  content: "O";
+  bottom: 20px;
+  font-size: 40px;
+  color: violet;
+}
+
+/* Curioso 🤔 */
+.face.curioso span {
+  content: "~";
+  bottom: 20px;
+  font-size: 28px;
+  color: orange;
