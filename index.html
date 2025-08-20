@@ -3,31 +3,229 @@
 <head>
   <meta charset="UTF-8">
   <title>Hope - Tu Bot Amigo</title>
-  <!-- Asegúrate de que el archivo esté en minúsculas -->
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== ESTILOS GENERALES ===== */
+    body {
+      font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
+      font-style: italic;
+      background: linear-gradient(135deg, #aee1f9, #fbc2eb);
+      background-size: 300% 300%;
+      animation: fondoAnimado 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    @keyframes fondoAnimado {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #444;
+      font-size: 1.6em;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+      z-index: 2;
+    }
+
+    /* ===== BURBUJITAS ===== */
+    .bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -150px;
+      border-radius: 50%;
+      animation: subir 20s infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes subir {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.3);
+        opacity: 0;
+      }
+    }
+
+    /* Colores pastel 🎨 */
+    .rosa { background: rgba(251, 194, 235, 0.6); }
+    .celeste { background: rgba(174, 225, 249, 0.6); }
+
+    /* Tamaños y posiciones random */
+    .bubble:nth-child(1) { width: 60px; height: 60px; left: 20%; animation-duration: 18s; }
+    .bubble:nth-child(2) { width: 40px; height: 40px; left: 50%; animation-duration: 22s; }
+    .bubble:nth-child(3) { width: 80px; height: 80px; left: 70%; animation-duration: 25s; }
+    .bubble:nth-child(4) { width: 30px; height: 30px; left: 40%; animation-duration: 20s; }
+    .bubble:nth-child(5) { width: 50px; height: 50px; left: 10%; animation-duration: 26s; }
+    .bubble:nth-child(6) { width: 90px; height: 90px; left: 80%; animation-duration: 28s; }
+    .bubble:nth-child(7) { width: 25px; height: 25px; left: 60%; animation-duration: 19s; }
+    .bubble:nth-child(8) { width: 70px; height: 70px; left: 30%; animation-duration: 24s; }
+
+    /* ===== CARITA ===== */
+    .face {
+      width: 120px;
+      height: 120px;
+      background: #fff;
+      border-radius: 50%;
+      position: relative;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s ease-in-out;
+      z-index: 2;
+    }
+
+    .eye {
+      width: 20px;
+      height: 20px;
+      background: #333;
+      border-radius: 50%;
+      position: absolute;
+      top: 35px;
+    }
+    .eye.left { left: 30px; }
+    .eye.right { right: 30px; }
+
+    .mouth {
+      width: 40px;
+      height: 20px;
+      background: transparent;
+      border: 3px solid #333;
+      border-top: none;
+      border-radius: 0 0 50px 50px;
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* ===== EMOCIONES ===== */
+    .feliz .mouth { border-top: none; border-radius: 0 0 50px 50px; }
+    .triste .mouth { transform: translateX(-50%) rotate(180deg); }
+    .duda .mouth { width: 25px; height: 5px; border-radius: 50%; bottom: 40px; }
+    .curioso .mouth { width: 10px; height: 10px; border-radius: 50%; bottom: 40px; }
+
+    /* ===== CHAT ===== */
+    .chatBox {
+      width: 340px;
+      height: 320px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      overflow-y: auto;
+      margin-bottom: 12px;
+      backdrop-filter: blur(6px);
+      z-index: 2;
+    }
+
+    .chatBox p {
+      margin: 6px 0;
+      padding: 9px 14px;
+      border-radius: 18px;
+      max-width: 75%;
+      word-wrap: break-word;
+      font-size: 0.95em;
+      line-height: 1.3em;
+    }
+
+    .userMsg {
+      background: #c8f7f0;
+      color: #333;
+      align-self: flex-end;
+      margin-left: auto;
+      font-style: italic;
+    }
+
+    .botMsg {
+      background: #fddde6;
+      color: #333;
+      align-self: flex-start;
+      margin-right: auto;
+      font-style: italic;
+    }
+
+    /* ===== INPUT Y BOTÓN ===== */
+    .inputBox {
+      display: flex;
+      width: 340px;
+      z-index: 2;
+    }
+
+    .inputBox input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 12px 0 0 12px;
+      border: none;
+      outline: none;
+      font-style: italic;
+    }
+
+    .inputBox button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 0 12px 12px 0;
+      background: #ff80ab;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-style: italic;
+    }
+
+    .inputBox button:hover {
+      background: #e91e63;
+    }
+  </style>
 </head>
 <body>
-  <h2>🤖 Hope - Tu Bot Amigo</h2>
+  <!-- Burbujaaas pastel 💕 -->
+  <div class="bubbles">
+    <div class="bubble rosa"></div>
+    <div class="bubble celeste"></div>
+    <div class="bubble rosa"></div>
+    <div class="bubble celeste"></div>
+    <div class="bubble rosa"></div>
+    <div class="bubble celeste"></div>
+    <div class="bubble rosa"></div>
+    <div class="bubble celeste"></div>
+  </div>
+
+  <h2>Hope - Tu Bot Amigo 🐰</h2>
 
   <!-- Carita -->
-  <div class="face">
+  <div class="face feliz">
     <div class="eye left"></div>
     <div class="eye right"></div>
     <div class="mouth"></div>
   </div>
 
-  <!-- Chat -->
-  <div class="chat">
-    <div id="chatBox"></div>
+  <!-- Caja de chat -->
+  <div id="chatBox" class="chatBox"></div>
 
-    <!-- Formulario para enviar mensajes -->
-    <form id="chatForm" class="input-area">
-      <input type="text" id="userInput" placeholder="Escríbele algo..." autocomplete="off">
-      <button type="submit">Enviar</button>
-    </form>
+  <!-- Input + botón -->
+  <div class="inputBox">
+    <input id="userInput" type="text" placeholder="Escribe algo..." onkeydown="if(event.key === 'Enter') enviarMensaje()">
+    <button onclick="enviarMensaje()">Enviar</button>
   </div>
 
-  <!-- Asegúrate de que el archivo esté en minúsculas -->
+  <!-- Script externo -->
   <script src="script.js"></script>
 </body>
-</html>
+  </html>
